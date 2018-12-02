@@ -3,14 +3,16 @@
 #include "ppm/ppm.h"
 #include "Image.h"
 
+#include <iostream>     // std::cout
+#include <fstream>      // std::ifstream
+
 using namespace imaging;
 using namespace std;
 
 
 int main(int argc, char *argv[]) {
 
-    char filename[50]= "Image01.ppm";
-    char type[10];
+    char filename[50]= "papadopoulos.ppm";
     int width = 0;
     int height = 0;
 
@@ -25,8 +27,7 @@ int main(int argc, char *argv[]) {
 
     Image myImage(width, height, imageColorData);
 
-    bool status = WritePPM(imageData,width, height, "papadopoulos.ppm");
-
+    bool status = WritePPM(imageData,width, height, "Image01reverted.ppm");
 
     system("pause");
     return 0;
