@@ -26,20 +26,26 @@ namespace imaging {
 
         if (!fileBin.is_open()) {
             printf("Could not open %s!\n", filename);
-            return nullptr;
+            cerr << "Could not open %s!\\n\", filename\n....Exiting...\n\n";
+            exit(1);
         }
 
         fileBin >> type >> width >> height >> maxNum;
 
+        if(type != "P6") {
+            cerr << "\n\n.......INVALID IMAGE TYPE\n....Exiting...\n\n";
+            exit(1);
+        }
+
         *w = width;
         *h = height;
 
-        int intArraySize = width * height * 3;
-        float * data = new float[intArraySize];
+        int imageTotatlPixels = width * height;
+        float * data = new float[imageTotatlPixels * 3];
 
         unsigned char pix[3];
         int j = 0;
-        for (int i = 0; i < width * height; ++i) {
+        for (int i = 0; i < imageTotatlPixels; ++i) {
             fileBin.read(reinterpret_cast<char *>(pix), 3);
             data[j++] = pix[0] / 255.f;
             data[j++] = pix[1] / 255.f;
@@ -59,7 +65,7 @@ namespace imaging {
             unsigned char p;
             // loop over each pixel in the image, clamp and convert to byte format
             for (int i = 0; i < w * h * 3; ++i) {
-                p = (min(1.f, (1-data[i])) * 255.f);
+                p =  (min(1.f, (1-data[i])) * 255.f);
                 ofs << p;
             }
             ofs.close();
