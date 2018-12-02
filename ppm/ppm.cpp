@@ -37,6 +37,11 @@ namespace imaging {
             exit(1);
         }
 
+        if(maxNum != 255) {
+            cerr << "\n\n.......INVALID IMAGE MAX VALUE\n....Exiting...\n\n";
+            exit(1);
+        }
+
         *w = width;
         *h = height;
 
