@@ -2,13 +2,16 @@
 #include "Color.h"
 #include <string>
 #include <iostream>
+#include "ppm/ppm.h"
 
 
 using namespace std;
 using namespace imaging;
 
 Image::Image () {
-
+    width = 0;
+    height = 0;
+    Color * buffer = nullptr;
 }
 
 //constructor
@@ -32,12 +35,37 @@ Image::~Image() {
 }
 
 bool Image::load(const std::string & filename, const std::string & format) {
-    //prepei na xrisimopoiisoume tin readPPM gia na fortwsoume tin eikona
+    int w, h;
+    float * imageData = ReadPPM(filename.c_str(), &w, &h);
+
+    buffer = new Color[width*height];
+
+    int pixel = -1;
+    for(int i=0; i<10; i++) {
+        for(int j=0; j<10; j++){
+
+            Color colorToSet;
+            colorToSet.r = imageData[pixel++];
+            colorToSet.g = imageData[pixel++];
+            colorToSet.b = imageData[pixel++];
+
+            setPixel(j, i, colorToSet);
+                cout << "set pixel no " << i << " x " << j << "with value" << colorToSet.r << " " << colorToSet.g << " " << colorToSet.b << "\n";
+
+        }
+    }
+    width = w;
+    height = h;
+
     return true;
 }
 
 bool Image::save(const std::string &filename, const std::string &format) {
-    //prepei na xrisimopoiisoume tin writePPM gia na exagoume tin eikona
+    if(format != "P6") {
+        cerr << "Invalid image format"<< "\n" <<"....Exiting...\n";
+        exit(1);
+    }
+
     return true;
 }
 

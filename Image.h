@@ -4,6 +4,7 @@
 
 #include "Color.h"
 #include <string>
+#include "ppm/ppm.h"
 
 /*! The imaging namespace contains every class or function associated with the image storage, compression and manipulation.
  */

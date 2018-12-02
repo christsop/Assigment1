@@ -25,20 +25,19 @@ namespace imaging {
         fstream fileBin(filename, ios::in | ios::binary);
 
         if (!fileBin.is_open()) {
-            printf("Could not open %s!\n", filename);
-            cerr << "Could not open %s!\\n\", filename\n....Exiting...\n\n";
+            cerr << "Could not open:"<< filename <<"....Exiting...\n";
             exit(1);
         }
 
         fileBin >> type >> width >> height >> maxNum;
 
         if(type != "P6") {
-            cerr << "\n\n.......INVALID IMAGE TYPE\n....Exiting...\n\n";
+            cerr << "\n\n.......INVALID IMAGE TYPE\n....Exiting...\n";
             exit(1);
         }
 
         if(maxNum != 255) {
-            cerr << "\n\n.......INVALID IMAGE MAX VALUE\n....Exiting...\n\n";
+            cerr << "\n\n.......INVALID IMAGE MAX VALUE\n....Exiting...\n";
             exit(1);
         }
 
@@ -58,17 +57,18 @@ namespace imaging {
         }
 
         return data;
+
     }
 
     bool WritePPM(const float * data, int w, int h, const char * filename) {
 
         std::ofstream ofs;
         try {
-            ofs.open(filename, std::ios::binary); // need to spec. binary mode for Windows users
-            if (ofs.fail()) throw("Can't open output file");
+            ofs.open(filename, std::ios::binary);
+            if (ofs.fail()) throw("Cannot open output file");
             ofs << "P6\n" << w << " " << h << "\n255\n";
             unsigned char p;
-            // loop over each pixel in the image, clamp and convert to byte format
+
             for (int i = 0; i < w * h * 3; ++i) {
                 p =  (min(1.f, (1-data[i])) * 255.f);
                 ofs << p;
@@ -79,22 +79,6 @@ namespace imaging {
             fprintf(stderr, "%s\n", err);
             ofs.close();
         }
-
-
-//        for(int i=0; i<(w*h*3); i++) {
-//            cout << i << " position has value " << data[i] << "\n";
-//        }
-//        cout << w << " x " << h;
-
-//        fstream file(filename, ios::out | ios::binary );
-//
-//        if (!file.is_open()) {
-//            printf("Could not create %s!\n", filename);
-//            return false;
-//        }
-//
-//        cout << "write ppm, a random value is " << (char)data[10] << "\n";
-//        file.write((char *)data, h*w*3);
 
         return true;
     }
