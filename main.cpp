@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
 
     Image myImage(width, height, imageColorData);
 
-    bool status = WritePPM(imageData,width, height, "neg1.ppm");
+    bool status = WritePPM(imageData,width, height, "negoriginal.ppm");
 
 
     system("pause");
