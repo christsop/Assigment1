@@ -3,4 +3,4 @@ project(Ass1Project)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Ass1Project main.cpp ppm/ppm.cpp Image.cpp Image.h Color.cpp Array.cpp Array.h)
+add_executable(Ass1Project main.cpp ppm/ppm.cpp Image.cpp Image.h Color.cpp Array.h)
